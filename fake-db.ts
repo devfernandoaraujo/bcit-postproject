@@ -102,12 +102,24 @@ function decoratePost(post) {
  * @param {*} sub which sub to fetch, defaults to all subs
  */
 function getPosts(n = 5, sub = undefined) {
+  const result = [];
+
   let allPosts = Object.values(posts);
   if (sub) {
     allPosts = allPosts.filter((post) => post.subgroup === sub);
   }
   allPosts.sort((a, b) => b.timestamp - a.timestamp);
-  return allPosts.slice(0, n);
+
+  allPosts.slice(0, n).forEach((post) => {
+    const userId = post.creator;
+
+    if (users[userId]) {
+      result.push({ ...post, creatorName: users[userId].uname });
+    }
+  });
+
+
+  return result;
 }
 
 function getPost(id) {

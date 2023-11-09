@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
     />
-    <link href="/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="../css/posts.css" rel="stylesheet" />
     <title>Homepage</title>
   </head>
   <body>
@@ -28,21 +28,21 @@
         <div class="individualPost">
           <a href="/posts/show/<%=post.id%>"><%= post.title %></a>
           <p><%= post.description %></p>
+         <span>Created by <%= post.creatorName %></span>
         </div>
+        <hr />
         <% }) %>
       </div>
 
       <div>
         <a href="/subs/list">Subgroups</a>
       </div>
-
-      <div>
-        <a role="button" href="/posts/create">Create Post</a>
-      </div>
-      <p style="color: rgb(197, 172, 172)">
-        😦 Heads up...you probably want to hide the Create Post button above for
-        non-logged-in users!
-      </p>
+      <% if (user) { %>
+        <div>
+          <a role="button" href="/posts/create">Create Post</a>
+        </div>
+      <% } %>
+      
     </main>
   </body>
 </html>

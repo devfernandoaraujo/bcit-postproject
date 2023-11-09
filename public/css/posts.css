@@ -1,0 +1,29 @@
+.authOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+hr{
+  border: none;
+  border-top: 1px solid #333;
+}
+
+.individualPost{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    
+}
+
+.individualPost p{
+    margin-bottom: 0.5rem;
+}
+
+.individualPost span{
+  padding-left: 2rem;
+  color: #325ccf;
+}
+

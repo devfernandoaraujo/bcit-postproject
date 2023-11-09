@@ -81,8 +81,8 @@ All GET routes, unless otherwise specified, should `res.render` a template. All 
   - `GET /` (redirects to /posts or /login)
     - shows a listing of the most recent 20 posts ✅
       - each entry has a link, which uses the title for its visible text ✅
-      - each entry also lists the user that created it
-- subs
+      - each entry also lists the user that created it 
+- subs (Fernando)
 
   - `GET /subs/list`
     - shows a list of all existing subs that have at least one post
@@ -91,7 +91,7 @@ All GET routes, unless otherwise specified, should `res.render` a template. All 
   - `GET /subs/show/:subname`
     - same as `GET /`, but filtered to only show posts that match the subname
 
-- individual posts
+- individual posts (Amir)
   - `GET /posts/show/:postid`
     - shows post title, post link, timestamp, and creator
     - also has a list of _all comments_ related to this post

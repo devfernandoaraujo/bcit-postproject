@@ -8,7 +8,9 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.ts",
-    "migrate": "npx prisma migrate dev" 
+    "migrate": "npx prisma migrate dev", 
+    "build": "npm install && tsc",
+    "start": "node index.js"
   },
   "license": "UNLICENSED",
   "dependencies": {

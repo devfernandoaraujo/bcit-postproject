@@ -1,0 +1,66 @@
+<%- include('./partials/head', {title: 'Home Page', cssFile: '../css/posts.css' }) %>
+    <div class="container-fluid"> 
+      <div class="py-4 d-flex justify-content-center align-items-center" >
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1"> 
+         <form action="/auth/register" method="post" class="needs-validation" novalidate>
+            
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div data-mdb-input-init class="form-floating mb-4">
+                        <input type="text" name="firstName" id="firstName" class="form-control form-control-lg" placeholder="First Name" required />
+                        <label class="form-label" for="firstName">First name</label>
+                        <div class="invalid-feedback">Type your first name.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div data-mdb-input-init class="form-floating">
+                        <input type="text" name="lastName" id="lastName" class="form-control form-control-lg" placeholder="Last name" required />
+                        <label class="form-label" for="lastName">Last name</label>
+                        <div class="invalid-feedback">Please type your last name.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- user name input -->
+            <div data-mdb-input-init class="form-floating mb-4">
+                <input type="text" id="uname" name="uname" class="form-control form-control-lg" placeholder="User name" required />
+                <label class="form-label" for="uname">User name</label>
+                <div class="invalid-feedback">Please type your user name.</div>
+            </div>
+
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-floating mb-4">
+                <input type="password" id="paswword" name="password" class="form-control form-control-lg" placeholder="Password" required />
+                <label class="form-label" for="password">Password</label>
+                <div class="invalid-feedback">Please type your password.</div>
+            </div>
+ 
+            <!-- Submit button -->
+            <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+
+        </form>
+    </div>
+      </section> 
+    </div>
+    <script>
+      (() => {
+        'use strict';
+        
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+       
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+          form.addEventListener('submit', (event) => {
+              
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+    </script>
+<%- include('./partials/footer') %>

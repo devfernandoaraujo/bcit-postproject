@@ -1,25 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
-    />
-    <link href="/css/style.css" rel="stylesheet" />
-    <title>Post</title>
-  </head>
-  <body>
-    <main>
-      <div class="authOptions">
-        <h1>View Post</h1>
-        <a role="button" href="/posts">Home</a>
+<%- include('./partials/head', {title: post.title , cssFile: '/css/posts.css' }) %>
+<section class="d-flex">
+   <div class="container-fluid"> 
+      <div class="row justify-content-center">
+         <div class="card h-100 d-flex flex-column  col-md-10 m-3"> 
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text">Source: <a href="<%= post.link %>" target="_blank"><%= post.title %></a></p>
+              <p class="card-text"><span><%= post.description %></span></p>
+               <div class="row">
+                <div class="col-6 text-start py-2">
+                   <% if(user){ %>
+                    <span class="vote-frame d-inline-flex p-1 mx-2 border rounded-4">
+                      <span class="vote p-1 text-12 button-secondary inline-flex items-center button-shell overflow-visible font-semibold flex cursor-auto" data-post-click-location="vote">
+                        <button data-postid=<%= post.id %> id="btn-upvote" aria-pressed="false" class="group button flex justify-center aspect-square p-0 border-0 button-secondary disabled:text-interactive-content-disabled button-plain inline-flex items-center hover:text-action-upvote focus-visible:text-action-upvote" style="height: var(--size-button-sm-h);" upvote="">
+                          <span class="flex mx-xs text-16">
+                            <svg fill="#ffffff" height="16" width="16" version="1.1" icon-name="upvote-outline" id="upvote-outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.027 512.027" xml:space="preserve" stroke="#ffffff" transform="rotate(180)">
+                              <g id="SVGRepo_bgCarrier"  stroke-width="10" stroke="#008080"></g>
+                              <g id="SVGRepo_tracerCarrier" stroke-width="10" stroke="#008080" stroke-linecap="round" stroke-linejoin="round"></g>
+                              <g id="SVGRepo_iconCarrier" stroke-width="10" stroke="#008080"> <g> 
+                                <g stroke-width="10" stroke="#008080"> 
+                                  <path d="M479.114,283.84c-1.707-3.947-5.547-6.507-9.813-6.507h-128V10.667C341.3,4.8,336.5,0,330.633,0H181.3 c-5.867,0-10.667,4.8-10.667,10.667v266.667h-128c-5.867,0-10.667,4.8-10.56,10.773c0,2.773,1.067,5.44,3.093,7.36L248.5,508.907 c4.16,4.16,10.88,4.16,15.04,0l213.333-213.44C479.86,292.373,480.82,287.893,479.114,283.84z M255.967,486.293L68.34,298.667 H181.3c5.867,0,10.667-4.8,10.667-10.667V21.333h128V288c0,5.867,4.8,10.667,10.667,10.667h112.96L255.967,486.293z"></path> 
+                                </g> 
+                              </g> 
+                            </g>
+                          </svg>
+                          </span>
+                        </button>
+                        <span id="nvotes" class="mx-2">
+                          <%= post.netVotes %>
+                        </span>
+
+                        <button data-postid=<%= post.id %> id="btn-downvote" aria-pressed="false" class="group button flex justify-center aspect-square p-0 border-0 button-secondary disabled:text-interactive-content-disabled button-plain inline-flex items-center hover:text-action-downvote focus-visible:text-action-downvote" style="height: var(--size-button-sm-h);" downvote="">
+                          <span class="p-0 text-12 button-secondary inline-flex items-center button-shell overflow-visible font-semibold flex items-center cursor-auto">
+                            <svg fill="#ffffff" height="16"  width="16" icon-name="downvote-outline" version="1.1" id="downvote-outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.027 512.027" xml:space="preserve" stroke="#ffffff">
+                              <g id="SVGRepo_bgCarrier" stroke-width="10" stroke="#FF0000	"></g>
+                              <g id="SVGRepo_tracerCarrier" stroke-width="10" stroke="#FF0000	" stroke-linecap="round" stroke-linejoin="round"></g>
+                              <g id="SVGRepo_iconCarrier" stroke-width="10" stroke="#FF0000	"> <g> 
+                                <g stroke-width="10" stroke="#FF0000	"> 
+                                  <path d="M479.114,283.84c-1.707-3.947-5.547-6.507-9.813-6.507h-128V10.667C341.3,4.8,336.5,0,330.633,0H181.3 c-5.867,0-10.667,4.8-10.667,10.667v266.667h-128c-5.867,0-10.667,4.8-10.56,10.773c0,2.773,1.067,5.44,3.093,7.36L248.5,508.907 c4.16,4.16,10.88,4.16,15.04,0l213.333-213.44C479.86,292.373,480.82,287.893,479.114,283.84z M255.967,486.293L68.34,298.667 H181.3c5.867,0,10.667-4.8,10.667-10.667V21.333h128V288c0,5.867,4.8,10.667,10.667,10.667h112.96L255.967,486.293z"></path> 
+                                </g> 
+                              </g> 
+                            </g>
+                          </svg>
+                            
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  <% } %>
+                </div>
+                <div class="col-6 text-end py-2">
+                   <% if(user && user.id === post.creator.id) { %>
+                      <a role="button" class="btn btn-primary me-3" href="/posts/edit/<%= post.id %>">Edit Post</a>
+                      <a role="button" class="btn btn-danger me-3" href="/posts/deleteconfirm/<%= post.id %>">Remove Post</a> 
+                    <% } %>
+                </div>
+                <div class="card-footer">
+                  <div class="row">
+                      <div class="col-6">
+                      by <%= post.creator.uname %>
+                      </div>
+                      <div class="col-6 fs-8">
+                        on <%= new Date(post.timestamp).toLocaleDateString() %> at <%= new Date(post.timestamp).toLocaleTimeString() %>
+                      </div>
+                </div> 
+            </div>
+         </div>
       </div>
-      <div>
-        <p>Implement this page yourself. It is from individualPost.ejs</p>
+    </div> 
+</section>
+ <section class="d-flex">
+    <div class="container-fluid"> 
+      <div class="row justify-content-center">
+         <div class="h-100 d-flex flex-column  col-md-10 m-3">
+          <% if (user) { %> 
+            <form action="/posts/comment-create/<%= post.id %>" method="post">
+              <div class="form-floating justify-content-center mb-3">
+                <textarea id="comment" name="comment" class="form-control" style="height: 10rem" placeholder="Comment"></textarea>
+                <label for="comment">New Comment</label>
+              </div>  
+              <div class="row">
+                <div class="col-12 text-end ">
+                  <input type="submit" class="btn btn-success me-3 end-0" value="Add Comment">
+                </div>
+              </div>
+                
+            </form> 
+          <% } %>
+        </div>
+      </div> 
+    </div>
+ </section> 
+ <section class="d-flex">
+  <div class="container-fluid">
+    <% post.comments.forEach(comment => { %>
+      <div class="card col-12">
+        <div class="card-body">
+          <p class="card-text" style="margin: 0;"><%= new Date(post.timestamp).toLocaleDateString() %> at <%= new Date(post.timestamp).toLocaleTimeString() %></p> 
+          <p class="card-text border rounded-pill py-2 px-3 lh-lg" style="margin: 0;"><%= comment.description %></p> 
+          <div class="card-footer border-0 pt-2">
+            <div class="row">
+              <div class="col-6">
+                Created by <%= comment.creator.uname %>
+              </div>
+              <div class="col-6">
+                 <% if(user && user.id === comment.creator.id) { %>
+                  <a role="button" class="btn btn-primary" href="/comments/show/<%= comment.id %>">View Comment</a>
+                <% } %>
+              </div>
+            </div>
+          </div>  
+        </div>
       </div>
-    </main>
-  </body>
-</html>
+    <% }) %>
+  </div>
+</section>
+   
+    <script>
+      $("#btn-upvote").on("click",(event)=>{
+        var postId = $(event.currentTarget).data('postid'); 
+         const data = {
+          vote: +1
+        }
+        axios.post(`/posts/vote/${postId}`,data)
+          .then((response) =>{
+            $("#nvotes").text(response.data.votes); 
+          })
+          .catch( (error) => { 
+            console.error(error);
+          });
+      });
+
+      $("#btn-downvote").on("click",(event)=>{
+        var postId = $(event.currentTarget).data('postid'); 
+         const data = {
+          vote: -1
+        }
+        axios.post(`/posts/vote/${postId}`,data)
+          .then((response) =>{
+            $("#nvotes").text(response.data.votes); 
+          })
+          .catch( (error) => { 
+            console.error(error);
+          });
+      });
+    </script>
+<%- include('./partials/footer') %>

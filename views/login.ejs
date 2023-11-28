@@ -4,28 +4,96 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
     <link href="/css/style.css" rel="stylesheet" />
     <title>Login</title>
+    <style>
+      .divider:after,
+      .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+      }
+      .h-custom {
+        height: calc(100% - 73px);
+      }
+      @media (max-width: 450px) {
+        .h-custom {
+           height: 100%;
+        }
+      }
+
+    </style>
   </head>
   <body>
-    <main>
-      <div class="box">
-        <h1>Login</h1>
-        <form action="/auth/login" method="post">
-          <input type="text" name="uname" id="uname" placeholder="Username" />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-          />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+    <main> 
+      <section class="vh-100">
+        <div class="container-fluid h-custom">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form action="/auth/login" method="post" class="needs-validation" novalidate> 
+
+                <!-- User input -->
+                <div class="form-floating mb-4" data-mdb-input-init>
+                  <input type="text" name="uname" id="uname" class="form-control form-control-lg"
+                    placeholder="Enter a valid user name" required  />
+                  <label class="form-label" for="uname">User name</label>
+                  <div class="invalid-feedback">Please type your user name.</div>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-floating mb-3" data-mdb-input-init>
+                   <input 
+                      type="password"
+                      name="password"
+                      id="password"
+                      class="form-control form-control-lg"
+                      placeholder="Enter password"
+                      required 
+                    />
+                    <label class="form-label" for="password">Password</label>
+                    <div class="invalid-feedback">Please type your password.</div>
+                </div>  
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/auth/register"
+                      class="link-danger">Register</a></p>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-  </body>
+     <script>
+      (() => {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach((form) => {
+          form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    
+  </body> 
 </html>

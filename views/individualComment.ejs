@@ -1,0 +1,29 @@
+<%- include('./partials/head', {title: 'Sub Posts', cssFile: '/css/style.css' }) %>
+<section class="d-flex my-3">
+    <div class="container-fluid"> 
+        <div class="row justify-content-center"> 
+          <div class="card h-100 d-flex flex-column  col-md-10 m-3"> 
+            <div class="card-body" style="height:auto">
+              <div class="border rounded p-2">
+                 <h5 class="card-title">Comment number <%= comment.id %></h5> 
+                <p class="card-text"><span><%= comment.description %></span></p>
+                <p class="card-text">by: <%= comment.creator.uname %></p>
+              </div> 
+            </div>
+             <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                      <% if(user && user.id === comment.creator.id) { %>
+                        <a role="button" class="btn btn-primary me-3" href="/comments/deleteconfirm/<%= comment.id %>">Remove</a>
+                        
+                      <% } %>
+                    </div>
+                    <div class="col-6 fs-8">
+                      on <%= new Date(comment.timestamp).toLocaleDateString() %> at <%= new Date(comment.timestamp).toLocaleTimeString() %>
+                    </div>
+              </div> 
+          </div>
+        </div>
+    </div>
+</section>  
+<%- include('./partials/footer') %>

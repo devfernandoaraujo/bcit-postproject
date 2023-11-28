@@ -1,5 +1,6 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import passport from "../middleware/passport";
+import {  registerUser } from "../controller/userController";  
 const router = express.Router();
 
 router.get("/login", async (req, res) => {
@@ -21,6 +22,27 @@ router.get("/logout", (req, res, next) => {
     }
   });
   res.redirect("/");
+});
+
+router.get("/register", async(req: Request, res: Response)=>{
+  res.render("register")
+});
+
+router.post("/register", async(req: Request, res: Response)=>{
+  try{
+    const firstName = await req.body.firstName;
+    const lastName = await req.body.lastName;
+    const uname = await req.body.uname;
+    const password = await req.body.password; 
+
+    await registerUser(firstName,lastName,uname,password);
+
+     res.redirect("/");
+
+  }
+  catch(error){
+    console.log(error);
+  }
 });
 
 export default router;

@@ -81,53 +81,53 @@ All GET routes, unless otherwise specified, should `res.render` a template. All 
   - `GET /` (redirects to /posts or /login)
     - shows a listing of the most recent 20 posts ✅
       - each entry has a link, which uses the title for its visible text ✅
-      - each entry also lists the user that created it 
-- subs (Fernando)
+      - each entry also lists the user that created it ✅
+- subs
 
-  - `GET /subs/list`
+  - `GET /subs/list` ✅
     - shows a list of all existing subs that have at least one post
       - each entry is a link to the appropriate `GET /subs/show/:subname`
       - sort them predictably somehow, either alphabetical or by-post-count or something, up to you
-  - `GET /subs/show/:subname`
+  - `GET /subs/show/:subname` ✅
     - same as `GET /`, but filtered to only show posts that match the subname
 
-- individual posts (Amir)
+- individual posts
   - `GET /posts/show/:postid`
-    - shows post title, post link, timestamp, and creator
-    - also has a list of _all comments_ related to this post
-      - each of these should show the comment description, creator, and timestamp
+    - shows post title, post link, timestamp, and creator ✅
+    - also has a list of _all comments_ related to this post ✅
+      - each of these should show the comment description, creator, and timestamp ✅
       - optionally, each comment could have a link to delete it
-    - if you're logged in, a form for commenting should show
+    - if you're logged in, a form for commenting should show ✅
   - `GET /posts/create`
-    - form for creating a new post
+    - form for creating a new post ✅
   - `POST /posts/create`
-    - processes the creation
-    - doesn't allow invalid creations, for example if there's no link and also no description
-      - (no-link is okay if you want to do that, though)
+    - processes the creation ✅
+    - doesn't allow invalid creations, for example if there's no link and also no description ✅
+      - (no-link is okay if you want to do that, though) ✅
     - every post must have a "sub", but it can be any string, including any string not previously used
-      - so if the sub already exists, connect this post to that sub
-      - but if the sub doesn't already exist, make a new sub!
-    - when finished redirects to the post just created
+      - so if the sub already exists, connect this post to that sub ✅
+      - but if the sub doesn't already exist, make a new sub! ✅
+    - when finished redirects to the post just created ✅
   - `GET /posts/edit/:postid`
-    - form for editing an existing post
-    - please think for a moment about which parts of a post should be editable, and which should not
-    - Shouldn't load unless you're logged in _as the correct user_
+    - form for editing an existing post ✅
+    - please think for a moment about which parts of a post should be editable, and which should not ✅
+    - Shouldn't load unless you're logged in _as the correct user_ ✅
   - `POST /posts/edit/:postid`
-    - redirect back to the post when done
+    - redirect back to the post when done ✅
   - `GET /posts/deleteconfirm/:postid`
-    - form for confirming delete of an existing post
-    - shouldn't load unless you're logged in _as the correct user_
+    - form for confirming delete of an existing post ✅
+    - shouldn't load unless you're logged in _as the correct user_ ✅
   - `POST /posts/delete/:postid`
-    - if cancelled, redirect back to the post
-    - if successful, redirect back to the _sub that the post belonged to_
+    - if cancelled, redirect back to the post ✅
+    - if successful, redirect back to the _sub that the post belonged to_ ✅
   - `POST /posts/comment-create/:postid`
-    - remember how `GET /posts/show/:postid` has a form for comments? It submits to here.
+    - remember how `GET /posts/show/:postid` has a form for comments? It submits to here. ✅
 - comments - these routes are _all optional_ at the PASS level, but I personally would find it useful to make them
   - `GET /comments/show/:commentid`
-    - shows just a single comment with all its data and any links that are useful
-  - `GET /comments/deleteconfirm/:commentid`
+    - shows just a single comment with all its data and any links that are useful ✅
+  - `GET /comments/deleteconfirm/:commentid` ✅
     - could be triggered from `GET /posts/show/:postid` or from `GET /comments/show/:commentid`
-  - `POST /comments/delete/:commentid`
+  - `POST /comments/delete/:commentid` ✅
 
 #### Code organization
 
@@ -135,11 +135,11 @@ I expect you to use `express.Router` to organize your routes where appropriate (
 
 I expect your variable names to be vaguely reasonable. An example of unreasonable is a variable with a name that is lies about what's in it (e.g. the variable is called `post` but it always contains an array of multiple posts, or a variable called `post_id` that contains a user ID). Also unreasonable is a variable that is super vague when there's an obvious less-vague name (e.g. a variable called `info` when there's an obvious better alternative like `post_count` or `user_name`).
 
-#### Ordering
+#### Ordering ✅
 
-At this level, every time there is a listing of posts or comments, they should be sorted by timestamp, with the most recent post/comment at the top.
+At this level, every time there is a listing of posts or comments, they should be sorted by timestamp, with the most recent post/comment at the top. 
 
-#### Header required
+#### Header required ✅
 
 Also, there should be a header shared across all pages.
 It should include the site title, of course, and that should be a link back to `GET /`.
@@ -161,7 +161,7 @@ CSS requirements are _very very low_. We're not really doing CSS in this course.
 
 For this level, probably most of the work will be on getting voting working.
 
-#### Voting
+#### Voting ✅
 
 Everywhere it's possible to see a post (homepage, subgroup listing, individual post page, etc), there should be an upvote button and a downvote button beside the post link. I suggest using two buttons, one that says "+" or "Up", and one that says "-" or "Down". This voting functionality should only show if the user is logged in.
 
@@ -177,11 +177,11 @@ If I click the already-voted on button, that should cancel my vote. So I should 
 
 So you'll need to add at least this route:
 
-- `POST /posts/vote/:postid/`
+- `POST /posts/vote/:postid/` ✅
   - uses a body field `setvoteto` to set vote to +1, -1, or 0, overriding previous vote
   - redirects back to `GET /posts/show/:postid`
 
-#### User Signup
+#### User Signup ✅
 
 It should be possible to sign up as a new user.
 
@@ -194,7 +194,7 @@ names and format your code with prettier if need be.
 
 ### EXEMPLARY
 
-#### No Page Reload on Comment Updates
+#### No Page Reload on Comment Updates ✅
 
 When upvoting or downvoting a post, use AJAX
 to initiate the update in the background (preventing the page from reloading).

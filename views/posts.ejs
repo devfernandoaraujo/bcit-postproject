@@ -1,48 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
-    />
-    <link href="/css/style.css" rel="stylesheet" />
-    <title>Homepage</title>
-  </head>
-  <body>
-    <main>
-      <div class="authOptions">
-        <h1>Homepage</h1>
-        <% if (!user) { %>
-        <a role="button" href="/auth/login">Login</a>
-        <% } else { %>
-        <a role="button" href="/auth/logout">Logout</a>
-        <% } %>
+<%- include('./partials/head', {title: 'Home Page', cssFile: '../css/posts.css' }) %>
+    <section class="d-flex position-relative">
+      <div class="col-6 p-3">
+        <h3>All Posts</h3> 
       </div>
-      <h2>Welcome, <%= user?.uname || "Visitor" %></h2>
-      <div>
-        <p>All Posts</p>
-        <% posts.forEach(post => { %>
-        <div class="individualPost">
-          <a href="/posts/show/<%=post.id%>"><%= post.title %></a>
-          <p><%= post.description %></p>
-        </div>
-        <% }) %>
+      <div class="position-absolute p-3 end-0">
+         <h3>Welcome, <%= user?.uname || "Visitor" %></h3>
       </div>
+    </section>
+    <section class="d-flex">
+      <div class="container-fluid"> 
+        <div class="row justify-content-center">
+          <% posts.forEach(post => { %>
+            <div class="card h-100 d-flex flex-column  col-md-3 m-3">
+              <div class="card-header fs-7"><%= new Date(post.timestamp).toLocaleDateString() %> at <%= new Date(post.timestamp).toLocaleTimeString() %>  </div>
+              <a href="/posts/show/<%=post.id%>" style="text-decoration: none; color:black">
+                <div class="card-body p-2 card-body-custom">
+                  <h6 class="card-title"><%= post.title %></h6>
+                  <p class="card-text"><%= post.description %></p>
+                  <span class="position-absolute opacity-50 top-70 start-50">Owner: <%= post.creatorName %></span>
+                </div>
+              </a>
+              <div class="card-footer">
+                <div class="row">
+                    <div class="col-12">
+                      <% if(user){ %>
+                        <span class="vote-frame d-inline-flex p-1  border rounded-4">
+                          <span class="vote p-1 text-12 button-secondary inline-flex items-center button-shell overflow-visible font-semibold flex cursor-auto" data-post-click-location="vote">
+                            <button data-postid=<%= post.id %> id="btn-upvote" aria-pressed="false" class="group button flex justify-center aspect-square p-0 border-0 button-secondary disabled:text-interactive-content-disabled button-plain inline-flex items-center hover:text-action-upvote focus-visible:text-action-upvote" style="height: var(--size-button-sm-h);" upvote="">
+                              <span class="flex mx-xs text-16">
+                                <svg fill="#ffffff" height="16" width="16" version="1.1" icon-name="upvote-outline" id="upvote-outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.027 512.027" xml:space="preserve" stroke="#ffffff" transform="rotate(180)">
+                                  <g id="SVGRepo_bgCarrier"  stroke-width="10" stroke="#008080"></g>
+                                  <g id="SVGRepo_tracerCarrier" stroke-width="10" stroke="#008080" stroke-linecap="round" stroke-linejoin="round"></g>
+                                  <g id="SVGRepo_iconCarrier" stroke-width="10" stroke="#008080"> <g> 
+                                    <g stroke-width="10" stroke="#008080"> 
+                                      <path d="M479.114,283.84c-1.707-3.947-5.547-6.507-9.813-6.507h-128V10.667C341.3,4.8,336.5,0,330.633,0H181.3 c-5.867,0-10.667,4.8-10.667,10.667v266.667h-128c-5.867,0-10.667,4.8-10.56,10.773c0,2.773,1.067,5.44,3.093,7.36L248.5,508.907 c4.16,4.16,10.88,4.16,15.04,0l213.333-213.44C479.86,292.373,480.82,287.893,479.114,283.84z M255.967,486.293L68.34,298.667 H181.3c5.867,0,10.667-4.8,10.667-10.667V21.333h128V288c0,5.867,4.8,10.667,10.667,10.667h112.96L255.967,486.293z"></path> 
+                                    </g> 
+                                  </g> 
+                                </g>
+                              </svg>
+                              </span>
+                            </button>
+                            <span id="nvotes" class="mx-2">
+                              <%= post.netVotes %>
+                            </span>
 
-      <div>
-        <a href="/subs/list">Subgroups</a>
+                            <button data-postid=<%= post.id %> id="btn-downvote" aria-pressed="false" class="group button flex justify-center aspect-square p-0 border-0 button-secondary disabled:text-interactive-content-disabled button-plain inline-flex items-center hover:text-action-downvote focus-visible:text-action-downvote" style="height: var(--size-button-sm-h);" downvote="">
+                              <span class="p-0 text-12 button-secondary inline-flex items-center button-shell overflow-visible font-semibold flex items-center cursor-auto">
+                                <svg fill="#ffffff" height="16"  width="16" icon-name="downvote-outline" version="1.1" id="downvote-outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.027 512.027" xml:space="preserve" stroke="#ffffff">
+                                  <g id="SVGRepo_bgCarrier" stroke-width="10" stroke="#FF0000	"></g>
+                                  <g id="SVGRepo_tracerCarrier" stroke-width="10" stroke="#FF0000	" stroke-linecap="round" stroke-linejoin="round"></g>
+                                  <g id="SVGRepo_iconCarrier" stroke-width="10" stroke="#FF0000	"> <g> 
+                                    <g stroke-width="10" stroke="#FF0000	"> 
+                                      <path d="M479.114,283.84c-1.707-3.947-5.547-6.507-9.813-6.507h-128V10.667C341.3,4.8,336.5,0,330.633,0H181.3 c-5.867,0-10.667,4.8-10.667,10.667v266.667h-128c-5.867,0-10.667,4.8-10.56,10.773c0,2.773,1.067,5.44,3.093,7.36L248.5,508.907 c4.16,4.16,10.88,4.16,15.04,0l213.333-213.44C479.86,292.373,480.82,287.893,479.114,283.84z M255.967,486.293L68.34,298.667 H181.3c5.867,0,10.667-4.8,10.667-10.667V21.333h128V288c0,5.867,4.8,10.667,10.667,10.667h112.96L255.967,486.293z"></path> 
+                                    </g> 
+                                  </g> 
+                                </g>
+                              </svg>
+                                
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      <% } %>
+                    </div>
+                </div>
+              </div> 
+            </div>
+          <% }) %>
+         </div>
       </div>
+    </section>
+    <script>
+      $("#btn-upvote").on("click",(event)=>{
+        var postId = $(event.currentTarget).data('postid'); 
+         const data = {
+          vote: +1
+        }
+        axios.post(`/posts/vote/${postId}`,data)
+          .then((response) =>{
+            $("#nvotes").text(response.data.votes); 
+          })
+          .catch( (error) => { 
+            console.error(error);
+          });
+      });
 
-      <div>
-        <a role="button" href="/posts/create">Create Post</a>
-      </div>
-      <p style="color: rgb(197, 172, 172)">
-        😦 Heads up...you probably want to hide the Create Post button above for
-        non-logged-in users!
-      </p>
-    </main>
-  </body>
-</html>
+      $("#btn-downvote").on("click",(event)=>{
+        var postId = $(event.currentTarget).data('postid'); 
+         const data = {
+          vote: -1
+        }
+        axios.post(`/posts/vote/${postId}`,data)
+          .then((response) =>{
+            $("#nvotes").text(response.data.votes); 
+          })
+          .catch( (error) => { 
+            console.error(error);
+          });
+      });
+    </script>
+ 
+      
+<%- include('./partials/footer') %>

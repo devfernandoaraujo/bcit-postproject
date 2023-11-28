@@ -1,21 +1,22 @@
-<%- include('./partials/head', {title: 'New Post', cssFile: '../css/posts.css' }) %>
+<%- include('./partials/head', {title: 'Edit Post', cssFile: '/css/posts.css' }) %>
+  
 <section class="d-flex my-3">
     <div class="container-fluid"> 
         <div class="row justify-content-center">
             <form action="/posts/create" method="post" class="needs-validation" novalidate>
-                <h1>New Post</h1>
+                <h1>Edit Post</h1>
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
                     <div class="col">
                         <div data-mdb-input-init class="form-floating mb-4">
-                            <input type="text" name="title" id="title" class="form-control form-control-lg" placeholder="First Name" required />
+                            <input type="text" name="title" id="title" value="<%= post.title %>" class="form-control form-control-lg" placeholder="First Name" required />
                             <label class="form-label" for="title">Title</label>
                             <div class="invalid-feedback">Type the title of the post.</div>
                         </div>
                     </div>
                     <div class="col">
                         <div data-mdb-input-init class="form-floating">
-                            <input type="text" name="subgroup" id="subgroup" class="form-control form-control-lg" placeholder="Last name" required />
+                            <input type="text" name="subgroup" value="<%= post.subgroup %>" id="subgroup" class="form-control form-control-lg" placeholder="Last name" required />
                             <label class="form-label" for="subgroup">Subgroup</label>
                             <div class="invalid-feedback">Please type the subgroup of the post.</div>
                         </div>
@@ -24,20 +25,21 @@
 
                 <!-- link input -->
                 <div data-mdb-input-init class="form-floating mb-4">
-                    <input type="text" id="link" name="link" class="form-control form-control-lg" placeholder="User name" required />
+                    <input type="text" id="link" value="<%= post.link %>" name="link" class="form-control form-control-lg" placeholder="User name" required />
                     <label class="form-label" for="link">Post link</label>
                     <div class="invalid-feedback">Please type the link of the post.</div>
                 </div>
 
-                <!-- Password input -->
-                <div data-mdb-input-init class="form-floating mb-4">
-                    <textarea type="textarea" id="description" style="height: 10rem" name="description" class="form-control form-control-lg" placeholder="Password" required></textarea>
+                <!-- Description input -->
+                <div data-mdb-input-init data-mdb-input-init class="form-floating mb-4">
+                    <textarea type="textarea" id="description" style="height: 10rem" name="description" class="form-control form-control-lg" placeholder="Password" required ><%= post.description %></textarea>
+                
                     <label class="form-label" for="description">Description</label>
                     <div class="invalid-feedback">Please type a description to your post.</div>
                 </div>
     
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Post</button>
+                <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Edit</button>
 
             </form>
         </div>
@@ -62,5 +64,6 @@
           }, false);
         });
       })();
-</script> 
+</script>  
 <%- include('./partials/footer') %>
+

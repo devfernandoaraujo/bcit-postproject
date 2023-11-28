@@ -2,11 +2,13 @@
   "name": "a1_jeddit",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "engines": {
+    "node": "20.x"
+  },
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon app.ts",
-    "migrate": "npx prisma migrate dev",
-    "build": "tsc"
+    "migrate": "npx prisma migrate dev" 
   },
   "license": "UNLICENSED",
   "dependencies": {
